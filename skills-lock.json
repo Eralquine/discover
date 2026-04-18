@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "remotion": {
+      "source": "remotion-devs/skills",
+      "sourceType": "github",
+      "computedHash": "d55a3fc3a39bf0cee54abf452a514454f2444ee73dda22502a9e36aaa107127f"
+    }
+  }
+}
