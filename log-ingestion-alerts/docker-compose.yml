@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: soc
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-soc}
+      POSTGRES_DB: soc
+    volumes:
+      - soc_pgdata:/var/lib/postgresql/data
+    # Not published to the host/internet - only the app service talks to it.
+    # Skip this whole service and point DATABASE_URL at a managed Postgres
+    # (e.g. Supabase) instead if you'd rather not run your own DB. See README.
+
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg2://soc:${POSTGRES_PASSWORD:-soc}@db:5432/soc
+    depends_on:
+      - db
+    ports:
+      # Point the FortiGate's remote syslog setting at this host on this port.
+      - "5514:5514/udp"
+      - "5514:5514/tcp"
+
+volumes:
+  soc_pgdata:

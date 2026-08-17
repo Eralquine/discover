@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+  <body style="font-family: -apple-system, Segoe UI, Roboto, sans-serif; color: #1a1a1a;">
+    <h2 style="color: {{ severity_color }};">[{{ severity | upper }}] {{ title }}</h2>
+    <p>{{ description }}</p>
+    <table cellpadding="4" style="border-collapse: collapse; font-size: 13px;">
+      <tr><td><strong>Rule</strong></td><td>{{ rule_id }}</td></tr>
+      <tr><td><strong>Detected at</strong></td><td>{{ created_at }}</td></tr>
+      <tr><td><strong>Matching events</strong></td><td>{{ event_count }}</td></tr>
+    </table>
+    <p style="color: #666; font-size: 12px;">Automated alert from the log ingestion &amp; alerting tool.</p>
+  </body>
+</html>

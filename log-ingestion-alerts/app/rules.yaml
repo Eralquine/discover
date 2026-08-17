@@ -1,0 +1,90 @@
+rules:
+  - id: m365_brute_force
+    name: Multiple failed Microsoft 365 sign-ins
+    source: m365
+    event_type: signin_failed
+    kind: threshold
+    group_field: actor
+    threshold: 5
+    window_minutes: 10
+    severity: high
+    title: "Possible brute force against {group_value}"
+    description: "{count} failed Microsoft 365 sign-ins for {group_value} in the last {window_minutes} minutes."
+
+  - id: m365_mailbox_forwarding
+    name: External mail forwarding enabled
+    source: m365
+    event_type: mailbox_forwarding_enabled
+    kind: immediate
+    severity: high
+    title: "Mail forwarding enabled on {actor}'s mailbox"
+    description: "A forwarding/redirect rule was created on {actor}'s mailbox from {src_ip}. This is a common Business Email Compromise indicator - verify the change was authorized."
+
+  - id: m365_inbox_rule
+    name: Suspicious inbox rule created
+    source: m365
+    event_type: inbox_rule_created
+    kind: immediate
+    severity: medium
+    title: "Inbox rule created for {actor}"
+    description: "{actor} created or modified an inbox rule from {src_ip}."
+
+  - id: m365_privileged_role
+    name: Privileged role assignment
+    source: m365
+    event_type: privileged_role_assignment
+    kind: immediate
+    severity: high
+    title: "Privileged role assigned by {actor}"
+    description: "{actor} performed a privileged directory role assignment from {src_ip}."
+
+  - id: m365_mail_threat
+    name: Mail threat detected
+    source: m365
+    event_type: mail_threat_detected
+    kind: immediate
+    severity: high
+    title: "Mail threat detected for {actor}"
+    description: "Microsoft Defender flagged a mail threat involving {actor}."
+
+  - id: fortinet_scan
+    name: High volume of denied connections from a single source
+    source: fortinet
+    event_type: firewall_denied
+    kind: threshold
+    group_field: src_ip
+    threshold: 50
+    window_minutes: 5
+    severity: medium
+    title: "Possible scan or attack from {group_value}"
+    description: "{count} denied connections from {group_value} in the last {window_minutes} minutes."
+
+  - id: fortinet_malware
+    name: Malware blocked
+    source: fortinet
+    event_type: malware_block
+    kind: immediate
+    severity: critical
+    title: "Malware blocked by FortiGate"
+    description: "FortiGate blocked malware on the connection {src_ip} -> {dest_ip}."
+
+  - id: fortinet_ips_block
+    name: IPS signature blocked
+    source: fortinet
+    event_type: ips_block
+    kind: immediate
+    severity: high
+    title: "IPS blocked an attack"
+    description: "FortiGate IPS blocked traffic from {src_ip} to {dest_ip}."
+
+  - id: fortinet_vpn_bruteforce
+    name: Multiple failed VPN logins
+    source: fortinet
+    event_type: vpn_login_failed
+    kind: threshold
+    group_field: src_ip
+    threshold: 5
+    window_minutes: 10
+    severity: high
+    title: "Possible VPN brute force from {group_value}"
+    description: "{count} failed VPN logins from {group_value} in the last {window_minutes} minutes."
