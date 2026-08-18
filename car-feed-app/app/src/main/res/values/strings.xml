@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CarFeed</string>
+    <string name="empty_feed">No hay videos en Movies/CarFeed. Copia clips a esa carpeta del dispositivo.</string>
+</resources>

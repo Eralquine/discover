@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.CarFeed" parent="Theme.AppCompat.NoActionBar" />
+
+    <style name="Theme.CarFeed.Fullscreen" parent="Theme.CarFeed">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+</resources>
